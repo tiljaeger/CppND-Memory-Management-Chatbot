@@ -13,7 +13,7 @@ ChatBot::ChatBot()
 {
     // invalidate data handles
     _image = nullptr;
-    _chatLogic = nullptr;
+    _chatLogic  = nullptr;
     _rootNode = nullptr;
 }
 
@@ -92,6 +92,14 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::mt19937 generator(int(std::time(0)));
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
+
+
+     // QUESTION?: prints unique ptr addr on stack
+    std::cout << "--- " << std::endl;
+    std::cout << "(Chatbot.SetChatLogicHandle) using unique ptr addr of _chatLogic on stack: " << &_chatLogic << std::endl;
+    // QUESTION?: for heap resource
+    _chatLogic->print();
+
 
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);

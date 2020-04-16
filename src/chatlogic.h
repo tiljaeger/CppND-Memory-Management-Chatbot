@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include "chatgui.h"
 
 // forward declarations
@@ -49,6 +50,8 @@ public:
     void SendMessageToChatbot(std::string message);
     void SendMessageToUser(std::string message);
     wxBitmap *GetImageFromChatbot();
+    // QUESTION?: addr of resource on heap
+    void print() {std::cout << "addr of managed object on heap: " << this <<std::endl;};
 };
 
 #endif /* CHATLOGIC_H_ */

@@ -3,6 +3,7 @@
 
 #include <wx/bitmap.h>
 #include <string>
+#include <iostream>
 
 class GraphNode; // forward declaration
 class ChatLogic; // forward declaration
@@ -36,7 +37,9 @@ public:
     // getters / setters
     void SetCurrentNode(GraphNode *node);
     void SetRootNode(GraphNode *rootNode) { _rootNode = rootNode; }
-    void SetChatLogicHandle(ChatLogic *chatLogic) { _chatLogic = chatLogic; }
+    // QUESTION?: move ownership of _chatLogic to chatbot
+    // QUESTION: not using move constrictor as the methd is called within chatLogic instance itselt?
+    void SetChatLogicHandle(ChatLogic *chatLogic) {_chatLogic = chatLogic;}
     wxBitmap *GetImageHandle() { return _image; }
 
     // communication

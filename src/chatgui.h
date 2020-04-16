@@ -28,8 +28,8 @@ public:
     ~ChatBotPanelDialog();
 
     // getter / setter
-    // TODO: Question: is this correct? I am only returning raw pointer;
-    // TODO: as caller function do not modify ownership --> use of raw pointer?  
+    // QUESTION: is this correct? I am only returning raw pointer;
+    // QUESTION: as caller function do not modify ownership --> use of raw pointer?  
     ChatLogic *GetChatLogicHandle() { return _chatLogic.get(); }
 
     // events
