@@ -45,7 +45,7 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
     // copy constructor
-    Chatbot (const Chatbot& source) {
+ChatBot::ChatBot (const ChatBot &source) {
         std::cout << "Chatbot copy constructor" << std::endl;
 
         // QUESTION: data handles (not owned) --> shallow copy
@@ -54,17 +54,17 @@ ChatBot::~ChatBot()
         _chatLogic->SetChatbotHandle(this);
 
          // QUESTION: data handles (owned) --> deep copy
-         if (_source._image != NULL) {
-             _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+         if (source._image != NULL) {
+             _image = new wxBitmap(*source._image);
          } else {
              _image = NULL;
          }
     }
     // copy assignment operator
-    Chatbot &operator=(const Chatbot& source) {
+    ChatBot &ChatBot::operator=(const ChatBot& source) {
         std::cout << "Chatbot copy assignment operator" << std::endl;
 
-        if (this == &_source) {
+        if (this == &source) {
             return *this;
         }
         // QUESTION: data handles (not owned) --> shallow copy
@@ -77,15 +77,15 @@ ChatBot::~ChatBot()
             delete[] _image;
         }
          // QUESTION: data handles (owned) --> deep copy
-         if (_source._image != NULL) {
-             _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+         if (source._image != NULL) {
+             _image = new wxBitmap(*source._image);
          } else {
              _image = NULL;
          }
-        return this;
+        return *this;
     }
     // move constructor
-    Chatbot (Chatbot&& source) {
+    ChatBot::ChatBot (ChatBot&& source) {
         std::cout << "Chatbot move constructor" << std::endl;
         // QUESTION: after copy invalidate stack and heap ptrs
         _currentNode = source._currentNode;
@@ -103,9 +103,9 @@ ChatBot::~ChatBot()
 
     }
     // move assignment operator
-    Chatbot &operator=(Chatbot&& source) {
+    ChatBot &ChatBot::operator=(ChatBot&& source) {
         std::cout << "Chatbot move assignment operator" << std::endl;
-        if (this == &_source) {
+        if (this == &source) {
             return *this;
         }
 
@@ -119,6 +119,7 @@ ChatBot::~ChatBot()
         _image = source._image;
         source._image = NULL;
 
+        return *this;
     }
 
 ////
