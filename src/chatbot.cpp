@@ -44,6 +44,82 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+    // copy constructor
+    Chatbot (const Chatbot& source) {
+        std::cout << "Chatbot copy constructor" << std::endl;
+
+        // QUESTION: data handles (not owned) --> shallow copy
+        _currentNode = source._currentNode;
+        _rootNode = source._rootNode;
+        _chatLogic->SetChatbotHandle(this);
+
+         // QUESTION: data handles (owned) --> deep copy
+         if (_source._image != NULL) {
+             _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+         } else {
+             _image = NULL;
+         }
+    }
+    // copy assignment operator
+    Chatbot &operator=(const Chatbot& source) {
+        std::cout << "Chatbot copy assignment operator" << std::endl;
+
+        if (this == &_source) {
+            return *this;
+        }
+        // QUESTION: data handles (not owned) --> shallow copy
+        _currentNode = source._currentNode;
+        _rootNode = source._rootNode;
+        _chatLogic->SetChatbotHandle(this);
+
+        // QUESTION: if there is a ptr to heap _image delete resource
+        if (_image != NULL) {
+            delete[] _image;
+        }
+         // QUESTION: data handles (owned) --> deep copy
+         if (_source._image != NULL) {
+             _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+         } else {
+             _image = NULL;
+         }
+        return this;
+    }
+    // move constructor
+    Chatbot (Chatbot&& source) {
+        std::cout << "Chatbot move constructor" << std::endl;
+        // QUESTION: after copy invalidate stack and heap ptrs
+        _currentNode = source._currentNode;
+        source._currentNode = nullptr;
+        _rootNode = source._rootNode;
+        source._rootNode = nullptr;
+        _chatLogic->SetChatbotHandle(this);
+        source._chatLogic->SetChatbotHandle(nullptr);
+
+        if (_image != NULL) {
+            delete _image;
+        }
+        _image = source._image;
+        source._image = NULL;
+
+    }
+    // move assignment operator
+    Chatbot &operator=(Chatbot&& source) {
+        std::cout << "Chatbot move assignment operator" << std::endl;
+        if (this == &_source) {
+            return *this;
+        }
+
+        // QUESTION: after copy invalidate stack and heap ptrs --> move all stack and heap ptr to this
+        _currentNode = source._currentNode;
+        source._currentNode = nullptr;
+        _rootNode = source._rootNode;
+        source._rootNode = nullptr;
+        _chatLogic->SetChatbotHandle(this);
+        source._chatLogic->SetChatbotHandle(nullptr);
+        _image = source._image;
+        source._image = NULL;
+
+    }
 
 ////
 //// EOF STUDENT CODE
