@@ -1,5 +1,7 @@
+#include <memory>
 #include "graphedge.h"
 #include "graphnode.h"
+
 
 
 GraphNode::GraphNode(int id)
@@ -29,13 +31,13 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 void GraphNode::MoveChatbotHere(ChatBot chatbot)
 {
     // QUESTION: transfer ownership of lvalues    
-    _chatBot = std::move(chatbot);
-    _chatBot.SetCurrentNode(this);
+    *_chatBot = std::move(chatbot);
+    _chatBot->SetCurrentNode(this);
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    newNode->MoveChatbotHere(_chatBot);
+    newNode->MoveChatbotHere(std::move(*_chatBot));
     _chatBot = nullptr; // invalidate pointer at source
 }
 ////

@@ -5,6 +5,7 @@
 #include <iterator>
 #include <tuple>
 #include <algorithm>
+#include <memory>
 
 #include "graphedge.h"
 #include "graphnode.h"
@@ -208,14 +209,14 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
 
-    // create local instance of chatbot and move it to root node
-    ChatBot _chatBot = new ChatBot("../images/chatbot.png");
+    // QUESTION: create local instance of chatbot on stack and move it to root node
+    ChatBot _chatBot("../images/chatbot.png");
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     _chatBot.SetChatLogicHandle(this);
     // add chatbot to graph root node
     _chatBot.SetRootNode(rootNode);
     // QUESTION: transfer ownership of lvalues
-    rootNode->MoveChatbotHere(move::std(_chatBot));
+    rootNode->MoveChatbotHere(std::move(_chatBot));
     
     ////
     //// EOF STUDENT CODE
