@@ -121,9 +121,9 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
 //    _chatLogic = new ChatLogic(); 
     _chatLogic = std::make_unique<ChatLogic>();
     // QUESTION?: prints unique ptr addr on stack
-    std::cout << "create unique ptr addr of _chatLogic on stack: " << &_chatLogic << std::endl;
+    //std::cout << "create unique ptr addr of _chatLogic on stack: " << &_chatLogic << std::endl;
     // QUESTION?: for heap resource
-    _chatLogic->print();
+    //_chatLogic->print();
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI
     _chatLogic->SetPanelDialogHandle(this);

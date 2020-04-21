@@ -210,13 +210,14 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     }
 
     // QUESTION: create local instance of chatbot on stack and move it to root node
-    ChatBot _chatBot("../images/chatbot.png");
+    //std::cout << "call chatbot constructor" << std::endl;
+    ChatBot myTempChatBot("../images/chatbot.png");
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    _chatBot.SetChatLogicHandle(this);
+    myTempChatBot.SetChatLogicHandle(this);
     // add chatbot to graph root node
-    _chatBot.SetRootNode(rootNode);
+    myTempChatBot.SetRootNode(rootNode);
     // QUESTION: transfer ownership of lvalues
-    rootNode->MoveChatbotHere(std::move(_chatBot));
+    rootNode->MoveChatbotHere(std::move(myTempChatBot));
     
     ////
     //// EOF STUDENT CODE

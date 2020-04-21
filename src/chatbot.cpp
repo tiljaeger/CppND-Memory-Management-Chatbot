@@ -92,15 +92,12 @@ ChatBot::ChatBot (const ChatBot &source) {
         source._currentNode = nullptr;
         _rootNode = source._rootNode;
         source._rootNode = nullptr;
+       _chatLogic = source._chatLogic;
+       source._chatLogic = nullptr;
         _chatLogic->SetChatbotHandle(this);
-        source._chatLogic->SetChatbotHandle(nullptr);
 
-        if (_image != NULL) {
-            delete _image;
-        }
         _image = source._image;
         source._image = NULL;
-
     }
     // move assignment operator
     ChatBot &ChatBot::operator=(ChatBot&& source) {
@@ -114,8 +111,9 @@ ChatBot::ChatBot (const ChatBot &source) {
         source._currentNode = nullptr;
         _rootNode = source._rootNode;
         source._rootNode = nullptr;
+        _chatLogic = source._chatLogic;
+       source._chatLogic = nullptr;
         _chatLogic->SetChatbotHandle(this);
-        source._chatLogic->SetChatbotHandle(nullptr);
         _image = source._image;
         source._image = NULL;
 
@@ -172,10 +170,10 @@ void ChatBot::SetCurrentNode(GraphNode *node)
 
 
      // QUESTION?: prints unique ptr addr on stack
-    std::cout << "--- " << std::endl;
-    std::cout << "(Chatbot.SetChatLogicHandle) using unique ptr addr of _chatLogic on stack: " << &_chatLogic << std::endl;
+    //std::cout << "--- " << std::endl;
+    //std::cout << "(Chatbot.SetChatLogicHandle) using unique ptr addr of _chatLogic on stack: " << &_chatLogic << std::endl;
     // QUESTION?: for heap resource
-    _chatLogic->print();
+    //_chatLogic->print();
 
 
     // send selected node answer to user

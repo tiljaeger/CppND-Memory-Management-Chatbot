@@ -7,6 +7,7 @@
 GraphNode::GraphNode(int id)
 {
     _id = id;
+    _chatBot = new ChatBot();
 }
 
 GraphNode::~GraphNode(){}
