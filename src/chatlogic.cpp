@@ -89,8 +89,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                     // node-based processing
                     if (type->second == "NODE")
                     {
-                        //// STUDENT CODE
-                        ////
 
                         // check if node with this ID exists already
                         //auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](GraphNode *node) { 
@@ -117,15 +115,11 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             AddAllTokensToElement("ANSWER", tokens, **newNode);
                         }
 
-                        ////
-                        //// EOF STUDENT CODE
                     }
 
                     // edge-based processing
                     if (type->second == "EDGE")
                     {
-                        //// STUDENT CODE
-                        ////
 
                         // find tokens for incoming (parent) and outgoing (child) node
                         auto parentToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "PARENT"; });
@@ -134,7 +128,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         if (parentToken != tokens.end() && childToken != tokens.end())
                         {
                             // get iterator on incoming and outgoing node via ID search
-                            // auto parentNode = std::find_if(_nodes.begin(), _nodes.end(), [&parentToken](GraphNode *node) { return node->GetID() == std::stoi(parentToken->second); });
                             auto parentNode = _nodes.begin();
                             while (parentNode != _nodes.end()) {
                                 if ((*parentNode)->GetID() == std::stoi(parentToken->second)) {
@@ -143,7 +136,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                                 parentNode++;
                             }
                         
-                            // auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](GraphNode *node) { return node->GetID() == std::stoi(childToken->second); });
                             auto childNode = _nodes.begin();
                             while (childNode != _nodes.end()) {
                                 if ((*childNode)->GetID() == std::stoi(childToken->second)) {
@@ -153,7 +145,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             }
 
                             // create new edge
-                            //GraphEdge *edge = new GraphEdge(id);
                             std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
                             edge->SetChildNode((*childNode).get());
                             edge->SetParentNode((*parentNode).get());
@@ -167,8 +158,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             (*parentNode)->AddEdgeToChildNode(std::move(edge));
                         }
 
-                        ////
-                        //// EOF STUDENT CODE
                     }
                 }
                 else
@@ -187,8 +176,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         return;
     }
 
-    //// STUDENT CODE
-    ////
 
     // identify root node
     GraphNode *rootNode = nullptr;
@@ -219,8 +206,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     // QUESTION: transfer ownership of lvalues
     rootNode->MoveChatbotHere(std::move(myTempChatBot));
     
-    ////
-    //// EOF STUDENT CODE
 }
 
 void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)
